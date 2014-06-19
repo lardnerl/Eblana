@@ -1,1 +1,1 @@
-web: gunicorn eblanaDB.wsgi
+web: gunicorn eblana.wsgi
