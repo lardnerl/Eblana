@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Characters</h1>
+
+<ul>
+  {% for character in object_list %}
+    <li class="character">
+       <a href="{{ character.get_absolute_url }}">{{ character }}</a>
+       (<a href="{% url "character-edit" pk=character.id %}">edit</a>)
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url "character-new" %}">add character</a>
+{% endblock %}
+
+
