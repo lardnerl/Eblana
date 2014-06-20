@@ -7,36 +7,36 @@ class Effect(models.Model):
     name = models.CharField(unique=True, max_length=32)
     def __unicode__(self):
         return u'%s' % (self.name)
-        
+
 class Duration(models.Model):
     time = models.CharField(unique=True, max_length=45)
     def __unicode__(self):
         return u'%s' % (self.time)
-        
+
 class Prefix(models.Model):
     prefix = models.CharField(unique=True, max_length=45)
     def __unicode__(self):
         return u'%s' % (self.prefix)
-        
+
 class Call(models.Model):
-    effect = models.ForeignKey(Effect) 
-    duration = models.ForeignKey(Duration, blank=True, null=True,) 
-    firstPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Mass') 
-    secondPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Global')  
-    thirdPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Through')  
-    fourthPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Enchanted')  
-    amount = models.IntegerField(blank=True, null=True) 
-    targeteffect = models.ForeignKey(Effect, blank=True, null=True, related_name='TargetEffect') 
+    effect = models.ForeignKey(Effect)
+    duration = models.ForeignKey(Duration, blank=True, null=True,)
+    firstPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Mass')
+    secondPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Global')
+    thirdPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Through')
+    fourthPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Enchanted')
+    amount = models.IntegerField(blank=True, null=True)
+    targeteffect = models.ForeignKey(Effect, blank=True, null=True, related_name='TargetEffect')
     def __unicode__(self):
         first = ''
         if self.firstPre is not None:
-            first = self.firstPre           
+            first = self.firstPre
         sec = ''
         if self.secondPre is not None:
-            sec = self.secondPre           
+            sec = self.secondPre
         third = ''
         if self.thirdPre is not None:
-            third = self.thirdPre   
+            third = self.thirdPre
         fourth = ''
         if self.fourthPre is not None:
             fourth = self.fourthPre
@@ -45,7 +45,7 @@ class Call(models.Model):
             duration = self.duration
         amount = ''
         if self.amount is not None:
-            amount = self.amount 
+            amount = self.amount
         target = ''
         if self.targeteffect is not None:
                 target = self.targeteffect
@@ -57,32 +57,32 @@ class Species(models.Model):
     visable = models.BooleanField(default=True)
     displayname = models.ForeignKey('self', blank=True, null=True)
     def __unicode__(self):
-        return u'%s' % (self.name)    
-        
+        return u'%s' % (self.name)
+
 class Character(models.Model):
-    owner = models.ForeignKey(User) 
-    idspecies = models.ForeignKey(Species) 
+    owner = models.ForeignKey(User)
+    idspecies = models.ForeignKey(Species)
     name = models.CharField(max_length=45)
-    isalive = models.BooleanField(default=True) 
-    isfinished = models.BooleanField(default=False) 
+    isalive = models.BooleanField(default=True)
+    isfinished = models.BooleanField(default=False)
     xp = models.IntegerField(default=0)
     body = models.IntegerField(default=1)
     armour = models.IntegerField(default=0)
     mana = models.IntegerField(default=0)
     def __unicode__(self):
-        return u'%s' % (self.name)       
+        return u'%s' % (self.name)
     def get_absolute_url(self):
         return reverse('character-view', kwargs={'pk': self.id})
-        
+
 class FeatType(models.Model):
     type = models.CharField(max_length=45)
     def __unicode__(self):
         return u'%s' % (self.type)
-        
+
 class Class(models.Model):
     name = models.CharField(max_length=45)
     level = models.IntegerField()
-    idclassprerequisite = models.ForeignKey('self', blank=True, null=True) 
+    idclassprerequisite = models.ForeignKey('self', blank=True, null=True)
     playable = models.BooleanField(default=True)
     visable = models.BooleanField(default=True)
     body = models.BooleanField()
@@ -98,14 +98,14 @@ class Class(models.Model):
     thridspell = models.IntegerField(default=0)
     fourthspell = models.IntegerField(default=0)
     fifthspell = models.IntegerField(default=0)
-    
+
     def __unicode__(self):
         return u'%s %s' % (self.name, self.level)
-        
+
 class Feat(models.Model):
-    idclass = models.ForeignKey(Class, blank=True, null=True) 
-    idrace = models.ForeignKey(Species, blank=True, null=True) 
-    idfeatsprerequisite = models.ForeignKey('self', blank=True, null=True) 
+    idclass = models.ForeignKey(Class, blank=True, null=True)
+    idrace = models.ForeignKey(Species, blank=True, null=True)
+    idfeatsprerequisite = models.ForeignKey('self', blank=True, null=True)
     name = models.CharField(max_length=45)
     quantity = models.IntegerField(blank=True, null=True)
     level = models.IntegerField()
@@ -113,7 +113,7 @@ class Feat(models.Model):
     stackable = models.BooleanField(default=False)
     playable = models.BooleanField(default=True)
     visable = models.BooleanField(default=True)
-    thislevelonly = models.BooleanField(default=False) 
+    thislevelonly = models.BooleanField(default=False)
     def __unicode__(self):
         quantity = ''
         if self.quantity is not None:
@@ -121,59 +121,59 @@ class Feat(models.Model):
         return u'%s %s' % (quantity, self.name)
 
 class CharacterClass(models.Model):
-    idcharacter  = models.ForeignKey(Character) 
-    idclass = models.ForeignKey(Class) 
+    idcharacter  = models.ForeignKey(Character)
+    idclass = models.ForeignKey(Class)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
     def __unicode__(self):
         return u'%s %s' % (self.idcharacter, self.idclass)
-    
+
 class CharacterFeat(models.Model):
-    idcharacter  = models.ForeignKey(Character) 
-    idfeat = models.ForeignKey(Feat) 
-    effect = models.ForeignKey(Effect, blank=True, null=True)   
-    source = models.ForeignKey(CharacterClass, blank=True, null=True) 
+    idcharacter  = models.ForeignKey(Character)
+    idfeat = models.ForeignKey(Feat)
+    effect = models.ForeignKey(Effect, blank=True, null=True)
+    source = models.ForeignKey(CharacterClass, blank=True, null=True)
     sourceother = models.CharField(max_length=256, blank=True, null=True)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
     def __unicode__(self):
-        return u'%s %s' % (self.idcharacter, self.idfeat)   
+        return u'%s %s' % (self.idcharacter, self.idfeat)
 
 class ClassFeat(models.Model):
-    idclass = models.ForeignKey(Class) 
-    idfeat = models.ForeignKey(Feat) 
+    idclass = models.ForeignKey(Class)
+    idfeat = models.ForeignKey(Feat)
     choiceopen = models.BooleanField(default=False)
     choiceclass = models.BooleanField(default=False)
     choicefeat = models.ForeignKey('self', blank=True, null=True)
     def __unicode__(self):
-        return u'%s %s' % (self.idclass, self.idfeat)  
-        
+        return u'%s %s' % (self.idclass, self.idfeat)
+
 class Spell(models.Model):
-    idclass = models.ForeignKey(Class) 
+    idclass = models.ForeignKey(Class)
     idcall = models.ForeignKey(Call)
     def __unicode__(self):
-        return u'%s %s' % (self.idclass, self.idcall) 
-    
+        return u'%s %s' % (self.idclass, self.idcall)
+
 class ClassSpell(models.Model):
-    idclass = models.ForeignKey(Class) 
+    idclass = models.ForeignKey(Class)
     idspell = models.ForeignKey(Spell)
     choiceopen = models.BooleanField(default=True)
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idspell)
 
 class CharacterSpell(models.Model):
-    idcharacter = models.ForeignKey(Character) 
+    idcharacter = models.ForeignKey(Character)
     idspell = models.ForeignKey(Spell)
-    effect = models.ForeignKey(Effect, blank=True, null=True)   
-    source = models.ForeignKey(CharacterClass, blank=True, null=True) 
+    effect = models.ForeignKey(Effect, blank=True, null=True)
+    source = models.ForeignKey(CharacterClass, blank=True, null=True)
     sourceother = models.CharField(max_length=256, blank=True, null=True)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
     def __unicode__(self):
-        return u'%s %s' % (self.idcharacter, self.idspell)  
-        
+        return u'%s %s' % (self.idcharacter, self.idspell)
+
 class UsersDetails(models.Model):
-    iduser = models.OneToOneField(User)
+    iduser = models.ForeignKey(User)
     number = models.CharField(max_length=45)
     emergencycontactname = models.CharField(max_length=45) # Field name made lowercase.
     emergencycontactnumber = models.CharField(max_length=45) # Field name made lowercase.
@@ -185,35 +185,35 @@ class UsersDetails(models.Model):
     carregistration = models.CharField(max_length=45, blank=True) # Field name made lowercase.
     medicalinformation = models.CharField(max_length=256, blank=True) # Field name made lowercase.
     donotcontact = models.BooleanField(default=False) # Field name made lowercase.
-    def __str__(self):  
-          return "%s's profile" % self.iduser  
+    def __str__(self):
+          return "%s's profile" % self.iduser
 
-def create_user_profile(sender, instance, created, **kwargs):  
-    if created:  
-       profile, created = UsersDetails.objects.get_or_create(iduser=instance)  
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+       profile, created = UsersDetails.objects.get_or_create(iduser=instance)
 
 post_save.connect(create_user_profile, sender=User)
-    
+
 class Lore(models.Model):
     name = models.CharField(max_length=45)
     playable = models.BooleanField(default=True)
     visable = models.BooleanField(default=True)
     def __unicode__(self):
         return u'%s' % (self.name)
-        
+
 class ClassLore(models.Model):
-    idclass = models.ForeignKey(Class) 
+    idclass = models.ForeignKey(Class)
     idlore = models.ForeignKey(Lore)
     choiceopen = models.BooleanField(default=True)
     def __unicode__(self):
-        return u'%s %s' % (self.idclass, self.idlore) 
+        return u'%s %s' % (self.idclass, self.idlore)
 
 class CharacterLore(models.Model):
     idcharacter = models.ForeignKey(Character)
     idlore = models.ForeignKey(Lore)
-    source = models.ForeignKey(CharacterClass, blank=True, null=True) 
+    source = models.ForeignKey(CharacterClass, blank=True, null=True)
     sourceother = models.CharField(max_length=256, blank=True, null=True)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
     def __unicode__(self):
-        return u'%s %s' % (self.idcharacter, self.idlore)  
+        return u'%s %s' % (self.idcharacter, self.idlore)
