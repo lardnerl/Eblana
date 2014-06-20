@@ -66,10 +66,9 @@ class CharacterView(LoggedInMixin, DetailView):
 
     model = Character
     template_name = 'character.html'
-
+"""
     def get_object(self, queryset=None):
         """Returns the object the view is displaying.
-
         """
         if queryset is None:
             queryset = self.get_queryset()
@@ -86,7 +85,7 @@ class CharacterView(LoggedInMixin, DetailView):
                           {'verbose_name': queryset.model._meta.verbose_name})
 
         return obj
-
+"""
 
 def Register(request):
     if request.method == 'POST':
