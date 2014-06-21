@@ -6,7 +6,7 @@ class charFeatsInLine(admin.StackedInline):
     model = CharacterFeat
     extra = 6
     
-class Character (admin.ModelAdmin):
+class CharacterAdmin (admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':['owner','name','idspecies','xp','body','armour','mana','isfinished']})
     ]
@@ -19,7 +19,7 @@ admin.site.register(Duration)
 admin.site.register(Call)
 admin.site.register(Prefix)
 admin.site.register(Species)
-admin.site.register(Character)
+admin.site.register(Character, CharacterAdmin)
 admin.site.register(Class)
 admin.site.register(Feat)
 admin.site.register(FeatType)
