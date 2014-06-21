@@ -23,6 +23,8 @@ class CharacterAdmin (admin.ModelAdmin):
         (None, {'fields':['owner','name','idspecies','xp','body','armour','mana','isfinished']})
     ]
     inlines = [charClassInLine, charFeatsInLine, charSpellsInLine, charLoresInLine]
+    
+
 
 
 # Register your models here.
