@@ -6,11 +6,23 @@ class charFeatsInLine(admin.StackedInline):
     model = CharacterFeat
     extra = 6
     
+class charClassInLine(admin.StackedInline):
+    model = CharacterClass
+    extra = 6
+    
+class charSpellsInLine(admin.StackedInline):
+    model = CharacterSpell
+    extra = 6
+    
+class charLoresInLine(admin.StackedInline):
+    model = CharacterLore
+    extra = 1
+    
 class CharacterAdmin (admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':['owner','name','idspecies','xp','body','armour','mana','isfinished']})
     ]
-    inlines = [charFeatsInLine]
+    inlines = [charClassInLine, charFeatsInLine, charSpellsInLine, charLoresInLine]
 
 
 # Register your models here.

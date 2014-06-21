@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 
 class Effect(models.Model):
     name = models.CharField(unique=True, max_length=32)
+    class Meta:
+        ordering = ['name']
     def __unicode__(self):
         return u'%s' % (self.name)
 
@@ -27,6 +29,8 @@ class Call(models.Model):
     fourthPre = models.ForeignKey(Prefix, blank=True, null=True, related_name='Enchanted')
     amount = models.IntegerField(blank=True, null=True)
     targeteffect = models.ForeignKey(Effect, blank=True, null=True, related_name='TargetEffect')
+    class Meta:
+        ordering = ['firstPre','secondPre','thirdPre','fourthPre','effect','duration','amount']
     def __unicode__(self):
         first = ''
         if self.firstPre is not None:
@@ -69,6 +73,8 @@ class Character(models.Model):
     body = models.IntegerField(default=1)
     armour = models.IntegerField(default=0)
     mana = models.IntegerField(default=0)
+    class Meta:
+        ordering = ['name']
     def __unicode__(self):
         return u'%s' % (self.name)
     def get_absolute_url(self):
@@ -98,7 +104,8 @@ class Class(models.Model):
     thridspell = models.IntegerField(default=0)
     fourthspell = models.IntegerField(default=0)
     fifthspell = models.IntegerField(default=0)
-
+    class Meta:
+        ordering = ['name']
     def __unicode__(self):
         return u'%s %s' % (self.name, self.level)
 
@@ -114,6 +121,8 @@ class Feat(models.Model):
     playable = models.BooleanField(default=True)
     visable = models.BooleanField(default=True)
     thislevelonly = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['name']
     def __unicode__(self):
         quantity = ''
         if self.quantity is not None:
@@ -125,6 +134,8 @@ class CharacterClass(models.Model):
     idclass = models.ForeignKey(Class)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
+    class Meta:
+        ordering = ['idclass']
     def __unicode__(self):
         return u'%s %s' % (self.idcharacter, self.idclass)
 
@@ -136,6 +147,8 @@ class CharacterFeat(models.Model):
     sourceother = models.CharField(max_length=256, blank=True, null=True)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
+    class Meta:
+        ordering = ['idfeat']
     def __unicode__(self):
         return u'%s %s' % (self.idcharacter, self.idfeat)
 
@@ -145,12 +158,16 @@ class ClassFeat(models.Model):
     choiceopen = models.BooleanField(default=False)
     choiceclass = models.BooleanField(default=False)
     choicefeat = models.ForeignKey('self', blank=True, null=True)
+    class Meta:
+        ordering = ['idclass','idfeat']
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idfeat)
 
 class Spell(models.Model):
     idclass = models.ForeignKey(Class)
     idcall = models.ForeignKey(Call)
+    class Meta:
+        ordering = ['idclass','idcall']
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idcall)
 
@@ -158,6 +175,8 @@ class ClassSpell(models.Model):
     idclass = models.ForeignKey(Class)
     idspell = models.ForeignKey(Spell)
     choiceopen = models.BooleanField(default=True)
+    class Meta:
+        ordering = ['idclass','idspell']
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idspell)
 
@@ -169,6 +188,8 @@ class CharacterSpell(models.Model):
     sourceother = models.CharField(max_length=256, blank=True, null=True)
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
+    class Meta:
+        ordering = ['idspell']
     def __unicode__(self):
         return u'%s %s' % (self.idcharacter, self.idspell)
 
