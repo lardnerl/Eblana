@@ -1,6 +1,18 @@
 from django.contrib import admin
 from database.models import *
 
+
+class charFeatsInLine(admin.StackedInline):
+    model = CharacterFeat
+    extra = 6
+    
+class Character (admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields':['owner','name','idspecies','xp','body','armour','mana','isfinished']})
+    ]
+    inlines = [charFeatsInLine]
+
+
 # Register your models here.
 admin.site.register(Effect)
 admin.site.register(Duration)
