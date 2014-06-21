@@ -32,7 +32,7 @@ class Call(models.Model):
     amount = models.IntegerField(blank=True, null=True)
     targeteffect = models.ForeignKey(Effect, blank=True, null=True, related_name='TargetEffect')
     class Meta:
-        ordering = ['firstPre','secondPre','thirdPre','fourthPre','effect','duration','-amount']
+        ordering = ['firstPre','secondPre','thirdPre','fourthPre','effect','duration','amount']
     def __unicode__(self):
         first = ''
         if self.firstPre is not None:
@@ -107,7 +107,7 @@ class Class(models.Model):
     fourthspell = models.IntegerField(default=0)
     fifthspell = models.IntegerField(default=0)
     class Meta:
-        ordering = ['name']
+        ordering = ['name','level']
     def __unicode__(self):
         return u'%s %s' % (self.name, self.level)
 
@@ -137,7 +137,7 @@ class CharacterClass(models.Model):
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
     class Meta:
-        ordering = ['-idclass']
+        ordering = ['idclass']
     def __unicode__(self):
         return u'%s %s' % (self.idcharacter, self.idclass)
 
@@ -161,7 +161,7 @@ class ClassFeat(models.Model):
     choiceclass = models.BooleanField(default=False)
     choicefeat = models.ForeignKey('self', blank=True, null=True)
     class Meta:
-        ordering = ['-idclass','idfeat']
+        ordering = ['idclass','idfeat']
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idfeat)
 
@@ -169,7 +169,7 @@ class Spell(models.Model):
     idclass = models.ForeignKey(Class)
     idcall = models.ForeignKey(Call)
     class Meta:
-        ordering = ['-idclass','idcall']
+        ordering = ['idclass','idcall']
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idcall)
 
@@ -178,7 +178,7 @@ class ClassSpell(models.Model):
     idspell = models.ForeignKey(Spell)
     choiceopen = models.BooleanField(default=True)
     class Meta:
-        ordering = ['-idclass','idspell']
+        ordering = ['idclass','idspell']
     def __unicode__(self):
         return u'%s %s' % (self.idclass, self.idspell)
 
