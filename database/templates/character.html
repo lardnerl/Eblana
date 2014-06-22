@@ -49,7 +49,7 @@
 		</td></tr>
 		<tr>
 			<td>Base Damage</td>
-			<td>{% if character.characterfeat_set.get_double %}
+			<td>{% if character.characterfeat_set.is_double %}
                     Double
                 {% else %}
                     Single

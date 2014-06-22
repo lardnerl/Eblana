@@ -151,8 +151,11 @@ class CharacterFeat(models.Model):
     visable = models.BooleanField(default=True)
     class Meta:
         ordering = ['idfeat']
-    def get_double(self):
-        return self.filter(idfeat.name="Strike for Double")
+    def is_double(self):
+        if idfeat.name is "Strike for Double":
+            return True
+        else 
+            return False
     def __unicode__(self):
         return u'%s %s %s' % (self.idfeat, effect, self.idcharacter)
 
