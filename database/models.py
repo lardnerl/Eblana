@@ -124,7 +124,7 @@ class Feat(models.Model):
     visable = models.BooleanField(default=True)
     thislevelonly = models.BooleanField(default=False)
     class Meta:
-        ordering = ['name']
+        ordering = ['quantity','name']
     def __unicode__(self):
         quantity = ''
         if self.quantity is not None:
@@ -152,7 +152,7 @@ class CharacterFeat(models.Model):
     class Meta:
         ordering = ['idfeat']
     def get_double(self):
-        return self.filter(idfeat="Strike for Double")
+        return self.filter(idfeat.name="Strike for Double")
     def __unicode__(self):
         return u'%s %s %s' % (self.idfeat, effect, self.idcharacter)
 
