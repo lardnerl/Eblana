@@ -129,7 +129,10 @@ class Feat(models.Model):
         quantity = ''
         if self.quantity is not None:
                 quantity = self.quantity
-        return u'%s %s' % (quantity, self.name)
+        classPre = ''
+        if self.idclass is not None:
+                classPre = self.quantity
+        return u'%s %s %s' % (quantity, self.name, classPre)
 
 class CharacterClass(models.Model):
     idcharacter  = models.ForeignKey(Character)
