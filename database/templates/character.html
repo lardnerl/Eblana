@@ -49,7 +49,11 @@
 		</td></tr>
 		<tr>
 			<td>Base Damage</td>
-			<td>Single</td>
+			<td>{% if "Strike for Double" in character.characterfeat_set.all %}
+                    Double
+                {% else %}
+                    Single
+                {% endif %}</td>
 		</tr>
 	</tbody>
 </table>
