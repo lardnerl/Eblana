@@ -28,7 +28,9 @@
 			<td>Class and Levels</td>
 			<td>
 				{% for class in character.characterclass_set.all %}
-                    <span class="icItem">{{ class.idclass }}</span>
+                    <span class="icItem">{% if class.idclass.name != "Character" %}
+                            {{ class.idclass }}</span>
+                        {% endif %}</span>
                 {% endfor %}			</td>
 		</tr>
 		<tr class="detail">
