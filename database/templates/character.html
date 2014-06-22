@@ -61,7 +61,7 @@
 				<b>Feats: </b>	
                     {% for feat in character.characterfeat_set.all %}
                         <span class="icItem">{{ feat.idfeat }} 
-                        {% if feat.effect is not None %}
+                        {% if feat.effect != None %}
                             {{ feat.effect }}</span>
                         {% endif %}
                     {% endfor %}
