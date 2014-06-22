@@ -60,7 +60,7 @@
 			<td>
 				<b>Feats: </b>	
                     {% for feat in character.characterfeat_set.all %}
-                        <span class="icItem">{{ feat }}</span>
+                        <span class="icItem">{{ feat.idfeat }} {{ feat.effect }}</span>
                     {% endfor %}
             </td>
 		</tr>
