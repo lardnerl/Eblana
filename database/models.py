@@ -154,7 +154,7 @@ class CharacterFeat(models.Model):
     def is_double(self):
         if idfeat.name is "Strike for Double":
             return True
-        else 
+        else :
             return False
     def __unicode__(self):
         return u'%s %s %s' % (self.idfeat, effect, self.idcharacter)
