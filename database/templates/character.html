@@ -33,7 +33,7 @@
 		</tr>
 		<tr class="detail">
 			<td>Species</td>
-			<td>{{ character.idspecies }}</td>
+			<td>{{ character.idspecies.displayname }}</td>
 		</tr>
 		<tr>
 			<td class="characterAttributes" colspan="2">
@@ -68,7 +68,7 @@
 			<td>
 				<b>Spells: </b>
                     {% for spell in character.characterspell_set.all %}
-                        <span class="icItem">{{ spell.idspell }}</span>
+                        <span class="icItem">{{ spell.idspell.idcall }}</span>
                     {% endfor %}
             </td>
 		</tr>

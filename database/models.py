@@ -137,9 +137,9 @@ class CharacterClass(models.Model):
     locked = models.BooleanField(default=False)
     visable = models.BooleanField(default=True)
     class Meta:
-        ordering = ['idclass']
+        ordering = ['idcharacter','idclass']
     def __unicode__(self):
-        return u'%s %s' % (self.idcharacter, self.idclass)
+        return u'%s %s' % (self.idclass,self.idcharacter)
 
 class CharacterFeat(models.Model):
     idcharacter  = models.ForeignKey(Character)
@@ -152,7 +152,7 @@ class CharacterFeat(models.Model):
     class Meta:
         ordering = ['idfeat']
     def __unicode__(self):
-        return u'%s %s' % (self.idcharacter, self.idfeat)
+        return u'%s %s' % (self.idfeat, self.idcharacter)
 
 class ClassFeat(models.Model):
     idclass = models.ForeignKey(Class)
