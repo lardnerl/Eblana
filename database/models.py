@@ -131,7 +131,7 @@ class Feat(models.Model):
                 quantity = self.quantity
         classPre = ''
         if self.idclass is not None:
-                classPre = self.quantity
+                classPre = self.idclass
         return u'%s %s %s' % (quantity, self.name, classPre)
 
 class CharacterClass(models.Model):
