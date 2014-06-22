@@ -68,8 +68,8 @@
                     {% for feat in character.characterfeat_set.all %}
                         <span class="icItem">{{ feat.idfeat }} 
                         {% if feat.effect != None %}
-                            {{ feat.effect }}</span>
-                        {% endif %}
+                            {{ feat.effect }}
+                        {% endif %}</span>
                     {% endfor %}
             </td>
 		</tr>
