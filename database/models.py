@@ -160,7 +160,10 @@ class CharacterFeat(models.Model):
         else :
             return False
     def __unicode__(self):
-        return u'%s %s %s' % (self.idfeat, self.effect, self.idcharacter)
+        eff = ''
+        if self.effect is not None:
+                eff = self.effect
+        return u'%s %s %s' % (self.idfeat, eff, self.idcharacter)
 
 class ClassFeat(models.Model):
     idclass = models.ForeignKey(Class)
